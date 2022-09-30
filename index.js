@@ -1,18 +1,9 @@
-const express = require("express");
-const mysql = require("mysql");
+import express, { json } from "express";
+import { connection } from "./db.js";
 
 const app = express();
-app.use(express.json());
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "mandado",
-});
-
-connection.connect();
-
+app.use(json());
 app.use(function (_, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3001");
   res.header(
