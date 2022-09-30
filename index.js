@@ -1,5 +1,6 @@
 import express, { json } from "express";
 import { connection } from "./db.js";
+import { PORT } from "./config.js";
 
 const app = express();
 
@@ -85,6 +86,6 @@ app.delete("/productos/:id", (req, res) => {
   );
 });
 
-app.listen(9000, () => {
+app.listen(PORT, () => {
   console.log("Servidor Funcionando");
 });
