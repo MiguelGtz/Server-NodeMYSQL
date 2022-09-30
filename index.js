@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import { connection } from "./db.js";
+import { pool } from "./db.js";
 import { PORT } from "./config.js";
 
 const app = express();
@@ -20,7 +20,7 @@ app.post("/productos", (req, res) => {
     nombre: req.body.nombre,
     precio: req.body.precio,
   };
-  connection.query("insert into productos set ?", data, (error, respuesta) => {
+  pool.query("insert into productos set ?", data, (error, respuesta) => {
     if (error) {
       throw error;
     } else {
@@ -30,7 +30,7 @@ app.post("/productos", (req, res) => {
 });
 
 app.get("/productos", (_, res) => {
-  connection.query("select * from productos", (error, filas) => {
+  pool.query("select * from productos", (error, filas) => {
     if (error) {
       throw error;
     } else {
@@ -40,7 +40,7 @@ app.get("/productos", (_, res) => {
 });
 
 app.get("/productos/:id", (req, res) => {
-  connection.query(
+  pool.query(
     "select * from productos where id = ?",
     [req.params.id],
     (error, fila) => {
@@ -59,7 +59,7 @@ app.put("/productos/:id", (req, res) => {
     nombre: req.body.nombre,
     precio: req.body.precio,
   };
-  connection.query(
+  pool.query(
     "update productos set nombre = ?, precio = ? where id = ?",
     [producto.nombre, producto.precio, producto.id],
     (error, respuesta) => {
@@ -73,7 +73,7 @@ app.put("/productos/:id", (req, res) => {
 });
 
 app.delete("/productos/:id", (req, res) => {
-  connection.query(
+  pool.query(
     "delete from productos where id = ?",
     [req.params.id],
     (error, respuesta) => {
