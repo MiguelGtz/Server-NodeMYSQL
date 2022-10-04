@@ -6,7 +6,10 @@ const app = express();
 
 app.use(json());
 app.use(function (_, res, next) {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://listamandadog.netlify.app"
+  );
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
